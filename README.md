@@ -23,3 +23,4 @@ The production build is written to `dist`.
 3. Build command: `npm run build`.
 4. Output directory: `dist`.
 5. Deploy.
+Updated deployment files.
