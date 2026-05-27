@@ -704,13 +704,17 @@ body {
   min-height: 0;
   overflow: hidden;
   isolation: isolate;
-  border-radius: var(--glass-radius, 34px);
+  border-radius: var(--glass-card-radius, var(--glass-radius, 34px));
+  border-color: rgb(from var(--glass-border-color, #fff) r g b / var(--glass-card-border-opacity, var(--glass-border-opacity, 0.16)));
   background:
     linear-gradient(rgb(255 255 255 / var(--glass-frost, 0.03)), rgb(255 255 255 / var(--glass-frost, 0.03))),
-    rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-opacity, 0.06));
-  box-shadow: none;
-  backdrop-filter: blur(var(--glass-blur, 16px));
-  -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
+    linear-gradient(rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-card-surface-opacity, 0.07)), rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-card-surface-opacity, 0.07))),
+    rgb(from var(--glass-card-veil-color, #051409) r g b / var(--glass-card-veil-opacity, 0.31));
+  box-shadow:
+    0 24px 90px rgb(0 0 0 / calc(var(--glass-shadow-opacity, 0.18) * 0.72)),
+    inset 0 1px 0 rgb(255 255 255 / var(--glass-highlight-opacity, 0.08));
+  backdrop-filter: blur(var(--glass-card-blur, var(--glass-blur, 16px))) saturate(1.14) contrast(1.04);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur, var(--glass-blur, 16px))) saturate(1.14) contrast(1.04);
 }
 
 .benefit-card.liquid-glass::before {
@@ -998,13 +1002,17 @@ body {
   padding: 0;
   overflow: hidden;
   isolation: isolate;
-  border-radius: var(--glass-radius, 34px);
+  border-radius: var(--glass-card-radius, var(--glass-radius, 34px));
+  border-color: rgb(from var(--glass-border-color, #fff) r g b / var(--glass-card-border-opacity, var(--glass-border-opacity, 0.16)));
   background:
     linear-gradient(rgb(255 255 255 / var(--glass-frost, 0.03)), rgb(255 255 255 / var(--glass-frost, 0.03))),
-    rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-opacity, 0.06));
-  box-shadow: none;
-  backdrop-filter: blur(var(--glass-blur, 16px));
-  -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
+    linear-gradient(rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-card-surface-opacity, 0.07)), rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-card-surface-opacity, 0.07))),
+    rgb(from var(--glass-card-veil-color, #051409) r g b / var(--glass-card-veil-opacity, 0.31));
+  box-shadow:
+    0 24px 90px rgb(0 0 0 / calc(var(--glass-shadow-opacity, 0.18) * 0.72)),
+    inset 0 1px 0 rgb(255 255 255 / var(--glass-highlight-opacity, 0.08));
+  backdrop-filter: blur(var(--glass-card-blur, var(--glass-blur, 16px))) saturate(1.14) contrast(1.04);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur, var(--glass-blur, 16px))) saturate(1.14) contrast(1.04);
 }
 
 .benefits-left.liquid-glass::before {
@@ -1235,13 +1243,17 @@ body {
   padding: clamp(20px, 1.95vw, 32px);
   overflow: hidden;
   isolation: isolate;
-  border-radius: var(--third-card-radius, var(--glass-radius, 34px));
+  border-radius: var(--third-card-radius, var(--glass-card-radius, var(--glass-radius, 34px)));
+  border-color: rgb(from var(--glass-border-color, #fff) r g b / var(--glass-card-border-opacity, var(--glass-border-opacity, 0.16)));
   background:
     linear-gradient(rgb(255 255 255 / var(--glass-frost, 0.03)), rgb(255 255 255 / var(--glass-frost, 0.03))),
-    rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-opacity, 0.06));
-  box-shadow: none;
-  backdrop-filter: blur(var(--glass-blur, 16px));
-  -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
+    linear-gradient(rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-card-surface-opacity, 0.07)), rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-card-surface-opacity, 0.07))),
+    rgb(from var(--glass-card-veil-color, #051409) r g b / var(--glass-card-veil-opacity, 0.31));
+  box-shadow:
+    0 24px 90px rgb(0 0 0 / calc(var(--glass-shadow-opacity, 0.18) * 0.72)),
+    inset 0 1px 0 rgb(255 255 255 / var(--glass-highlight-opacity, 0.08));
+  backdrop-filter: blur(var(--glass-card-blur, var(--glass-blur, 16px))) saturate(1.14) contrast(1.04);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur, var(--glass-blur, 16px))) saturate(1.14) contrast(1.04);
 }
 
 .third-card.liquid-glass::before {
@@ -1819,13 +1831,17 @@ body {
   padding: var(--fifth-card-padding, 32px);
   overflow: hidden;
   isolation: isolate;
-  border-radius: var(--fifth-card-radius, var(--third-card-radius, var(--glass-radius, 34px)));
+  border-radius: var(--fifth-card-radius, var(--third-card-radius, var(--glass-card-radius, var(--glass-radius, 34px))));
+  border-color: rgb(from var(--glass-border-color, #fff) r g b / var(--glass-card-border-opacity, var(--glass-border-opacity, 0.16)));
   background:
     linear-gradient(rgb(255 255 255 / var(--glass-frost, 0.03)), rgb(255 255 255 / var(--glass-frost, 0.03))),
-    rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-opacity, 0.06));
-  box-shadow: none;
-  backdrop-filter: blur(var(--glass-blur, 16px));
-  -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
+    linear-gradient(rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-card-surface-opacity, 0.07)), rgb(from var(--glass-surface-color, #fff) r g b / var(--glass-card-surface-opacity, 0.07))),
+    rgb(from var(--glass-card-veil-color, #051409) r g b / var(--glass-card-veil-opacity, 0.31));
+  box-shadow:
+    0 24px 90px rgb(0 0 0 / calc(var(--glass-shadow-opacity, 0.18) * 0.72)),
+    inset 0 1px 0 rgb(255 255 255 / var(--glass-highlight-opacity, 0.08));
+  backdrop-filter: blur(var(--glass-card-blur, var(--glass-blur, 16px))) saturate(1.14) contrast(1.04);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur, var(--glass-blur, 16px))) saturate(1.14) contrast(1.04);
   transform: translate(
     var(--fifth-card-x, 0px),
     var(--fifth-card-y, 0px)
@@ -1907,10 +1923,13 @@ body {
   border-radius: 0;
   background:
     linear-gradient(rgb(255 255 255 / var(--footer-glass-frost, 0.03)), rgb(255 255 255 / var(--footer-glass-frost, 0.03))),
-    rgb(from var(--footer-glass-surface-color, #fff) r g b / var(--footer-glass-opacity, 0.06));
-  box-shadow: none;
-  backdrop-filter: blur(var(--footer-glass-blur, 16px));
-  -webkit-backdrop-filter: blur(var(--footer-glass-blur, 16px));
+    linear-gradient(rgb(from var(--footer-glass-surface-color, #fff) r g b / var(--footer-glass-surface-opacity, 0.05)), rgb(from var(--footer-glass-surface-color, #fff) r g b / var(--footer-glass-surface-opacity, 0.05))),
+    rgb(from var(--footer-glass-veil-color, #051409) r g b / var(--footer-glass-veil-opacity, 0.24));
+  box-shadow:
+    0 -26px 120px rgb(0 0 0 / calc(var(--glass-shadow-opacity, 0.18) * 0.55)),
+    inset 0 1px 0 rgb(255 255 255 / calc(var(--glass-highlight-opacity, 0.08) * 0.65));
+  backdrop-filter: blur(var(--footer-glass-effective-blur, var(--footer-glass-blur, 16px))) saturate(1.1) contrast(1.03);
+  -webkit-backdrop-filter: blur(var(--footer-glass-effective-blur, var(--footer-glass-blur, 16px))) saturate(1.1) contrast(1.03);
 }
 
 .site-footer.liquid-glass::before {

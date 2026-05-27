@@ -11,7 +11,7 @@ import BorderGlow from "./BorderGlow.jsx";
 import projectPresets from "../../../data/presets.json";
 
 const PRESET_STORAGE_KEY = "woven-light-presets";
-const CURRENT_SETTINGS_STORAGE_KEY = "woven-light-current-settings";
+const CURRENT_SETTINGS_STORAGE_KEY = "woven-light-current-settings-v4";
 const PROJECT_DEFAULT_PRESET_NAME = "32";
 const SHOW_SHADER_CONTROLS = false;
 const EARLY_ACCESS_EMAIL_ENDPOINT = "https://formsubmit.co/ajax/domofeel@gmail.com";
@@ -465,9 +465,12 @@ const baseDefaultSettings = {
 const projectDefaultPresetSettings =
   projectPresets.find((preset) => preset?.name === PROJECT_DEFAULT_PRESET_NAME)?.settings ?? {};
 
+const productionGlassOverrides = {};
+
 const defaultSettings = {
   ...baseDefaultSettings,
   ...projectDefaultPresetSettings,
+  ...productionGlassOverrides,
   benefitsImages: [benefitsCardImage],
 };
 
@@ -1280,6 +1283,15 @@ export const WovenLightHero = () => {
       "--glass-glossiness": settings.glassGlossiness ?? 0.12,
       "--glass-glossiness-angle": `${settings.glassGlossinessAngle ?? 135}deg`,
       "--glass-glossiness-color": settings.glassGlossinessColor ?? "#ffffff",
+      "--glass-card-fill": settings.glassCardFill ?? 0.92,
+      "--glass-card-blur": `${settings.glassCardBlur ?? settings.glassBlur ?? 5}px`,
+      "--glass-card-radius": `${settings.glassCardRadius ?? settings.glassRadius ?? 39}px`,
+      "--glass-card-border-opacity": settings.glassCardBorderOpacity ?? settings.glassBorderOpacity ?? 0.16,
+      "--glass-card-veil-color": settings.figureOverlayColor ?? "#051409",
+      "--glass-card-veil-opacity": Math.min(0.42, Math.max(0.18, (settings.glassCardFill ?? 0.92) * 0.34)),
+      "--glass-card-surface-opacity": Math.min(0.12, Math.max(0.035, (settings.glassCardFill ?? 0.92) * 0.08)),
+      "--glass-highlight-opacity": settings.glassHighlightOpacity ?? 0.08,
+      "--glass-shadow-opacity": settings.glassShadowOpacity ?? 0.18,
       "--benefits-text-color": settings.benefitsTextColor,
       "--benefits-text-second-color": settings.benefitsTextSecondColor,
       "--benefits-block-top-gap": `${settings.benefitsBlockTopGap ?? 0}px`,
@@ -1567,6 +1579,10 @@ export const WovenLightHero = () => {
       "--footer-glass-glossiness": settings.footerGlassGlossiness ?? settings.glassGlossiness ?? 0.12,
       "--footer-glass-glossiness-angle": `${settings.footerGlassGlossinessAngle ?? settings.glassGlossinessAngle ?? 135}deg`,
       "--footer-glass-glossiness-color": settings.footerGlassGlossinessColor ?? settings.glassGlossinessColor ?? "#ffffff",
+      "--footer-glass-veil-color": settings.figureOverlayColor ?? "#051409",
+      "--footer-glass-veil-opacity": Math.min(0.36, Math.max(0.16, (settings.glassCardFill ?? 0.92) * 0.26)),
+      "--footer-glass-surface-opacity": Math.min(0.10, Math.max(0.025, (settings.glassCardFill ?? 0.92) * 0.055)),
+      "--footer-glass-effective-blur": `${Math.max(settings.footerGlassBlur ?? settings.glassCardBlur ?? settings.glassBlur ?? 4, settings.glassCardBlur ?? 5)}px`,
       "--nav-top": `${settings.navTop}px`,
       "--nav-x": `${settings.navX}px`,
       "--header-item-height": `${settings.headerItemHeight}px`,
@@ -2167,6 +2183,47 @@ export function GlowingInput({
     "--third-button-pressed-scale": settings.thirdButtonPressedScale ?? 0.98,
     "--third-button-transition": `${settings.thirdButtonTransitionMs ?? 180}ms`,
   };
+  useEffect(() => {
+    if (!isPopupOpen || typeof document === "undefined") return;
+
+    const { body, documentElement } = document;
+    const scrollY = window.scrollY || documentElement.scrollTop || 0;
+    const previousBodyStyles = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+      paddingRight: body.style.paddingRight,
+    };
+    const previousHtmlOverflow = documentElement.style.overflow;
+    const scrollbarWidth = window.innerWidth - documentElement.clientWidth;
+
+    documentElement.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      documentElement.style.overflow = previousHtmlOverflow;
+      body.style.position = previousBodyStyles.position;
+      body.style.top = previousBodyStyles.top;
+      body.style.left = previousBodyStyles.left;
+      body.style.right = previousBodyStyles.right;
+      body.style.width = previousBodyStyles.width;
+      body.style.overflow = previousBodyStyles.overflow;
+      body.style.paddingRight = previousBodyStyles.paddingRight;
+      window.scrollTo(0, scrollY);
+    };
+  }, [isPopupOpen]);
+
   const popupLayer = isPopupOpen
     ? createPortal(
         <div className="waitlist-popup-layer" role="presentation" style={popupStyle}>
